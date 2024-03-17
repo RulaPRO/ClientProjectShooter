@@ -2,7 +2,7 @@
 
 namespace Camera
 {
-    public class LookAtCamera : MonoBehaviour
+    public class LookAtCameraBehaviour : MonoBehaviour
     {
         private UnityEngine.Camera mainCamera;
 
