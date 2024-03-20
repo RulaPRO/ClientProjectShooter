@@ -1,4 +1,5 @@
-﻿using Core.Services.Input.Intrfaces;
+﻿using System;
+using Core.Services.Input.Interfaces;
 using UnityEngine;
 using Zenject;
 
@@ -6,6 +7,8 @@ namespace Core.Services.Input.Implementation
 {
     public class PCInputService : IInputService, ITickable
     {
+        public event Action OnFireButtonPressed;
+
         public Vector3 Direction { get; private set; }
         public float RotationY { get; private set; }
 
@@ -13,6 +16,8 @@ namespace Core.Services.Input.Implementation
         {
             UpdateDirection();
             UpdateRotation();
+
+            UpdateFireState();
         }
 
         private void UpdateDirection()
@@ -25,6 +30,14 @@ namespace Core.Services.Input.Implementation
         private void UpdateRotation()
         {
             RotationY += UnityEngine.Input.GetAxis("Mouse X");
+        }
+
+        private void UpdateFireState()
+        {
+            if (UnityEngine.Input.GetButton("Fire1"))
+            {
+                OnFireButtonPressed?.Invoke();
+            }
         }
     }
 }
