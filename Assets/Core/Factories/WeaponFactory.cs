@@ -1,10 +1,11 @@
 ﻿using Characters;
+using Core.Services.Weapon.Implementation;
 using UnityEngine;
 using Zenject;
 
 namespace Core.Factories
 {
-    public class WeaponFactory : IFactory<string, WeaponView>
+    public class WeaponFactory : IFactory<WeaponType, WeaponView>
     {
         private DiContainer diContainer;
 
@@ -14,17 +15,17 @@ namespace Core.Factories
             this.diContainer = diContainer;
         }
 
-        public WeaponView Create(string id)
+        public WeaponView Create(WeaponType weaponType)
         {
-            var prefab = LoadWeaponPrefab(id);
+            var prefab = LoadWeaponPrefab(weaponType);
             var instance = diContainer.InstantiatePrefabForComponent<WeaponView>(prefab);
 
             return instance;
         }
 
-        private WeaponView LoadWeaponPrefab(string id)
+        private WeaponView LoadWeaponPrefab(WeaponType weaponType)
         {
-            return Resources.Load<WeaponView>($"Weapons/{id}");
+            return Resources.Load<WeaponView>($"Weapons/WeaponView{weaponType.ToString()}");
         }
     }
 }
