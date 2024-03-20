@@ -1,4 +1,5 @@
-﻿using Core.Services.Weapon.Implementation;
+﻿using Core.Factories;
+using Core.Services.Weapon.Implementation;
 using Core.Services.Weapon.Interfaces;
 using Zenject;
 
@@ -8,6 +9,11 @@ namespace Core.Installers
     {
         public override void InstallBindings()
         {
+            Container
+                .Bind<WeaponFactory>()
+                .FromNew()
+                .AsSingle();
+
             Container
                 .Bind<IWeaponService>()
                 .To<WeaponService>()
