@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: WeaponsConfigAsset
   m_EditorClassIdentifier: 
   configs:
+  - {fileID: 11400000, guid: 4b8d34098d96ac54483f39a7aff89d03, type: 2}
+  - {fileID: 11400000, guid: 87bc19081719c8545a0cce5688de26e5, type: 2}
   - {fileID: 11400000, guid: 2c20d227adc8ab04baca423ccba19340, type: 2}

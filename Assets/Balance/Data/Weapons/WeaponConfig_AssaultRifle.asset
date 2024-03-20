@@ -19,4 +19,4 @@ MonoBehaviour:
   shootAccuracy: 2.5
   shootDelayMs: 100
   magazineSize: 30
-  reloadTimeMs: 5000
+  reloadTimeMs: 3000

@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 227b1279e8fa4909874204332e2ea3be, type: 3}
   m_Name: WeaponConfig_Shotgun
   m_EditorClassIdentifier: 
-  weaponType: 3
-  balletDamage: 5
-  bulletRange: 50
-  bulletSpeed: 50
-  shootAccuracy: 2.5
-  shootDelayMs: 100
-  magazineSize: 30
-  reloadTimeMs: 5000
+  weaponType: 2
+  balletDamage: 10
+  bulletRange: 15
+  bulletSpeed: 30
+  shootAccuracy: 7.5
+  shootDelayMs: 350
+  magazineSize: 2
+  reloadTimeMs: 1500
