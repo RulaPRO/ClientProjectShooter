@@ -1,4 +1,4 @@
-﻿using Core.Services.Input.Intrfaces;
+﻿using Core.Services.Input.Interfaces;
 using UnityEngine;
 using Zenject;
 

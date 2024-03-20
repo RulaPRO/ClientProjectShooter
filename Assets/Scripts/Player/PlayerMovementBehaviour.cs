@@ -1,8 +1,8 @@
-﻿using Core.Services.Input.Intrfaces;
+﻿using Core.Services.Input.Interfaces;
 using UnityEngine;
 using Zenject;
 
-namespace Characters
+namespace Player
 {
     public class PlayerMovementBehaviour : MonoBehaviour
     {
