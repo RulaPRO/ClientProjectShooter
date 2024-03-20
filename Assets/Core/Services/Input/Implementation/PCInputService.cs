@@ -8,6 +8,9 @@ namespace Core.Services.Input.Implementation
     public class PCInputService : IInputService, ITickable
     {
         public event Action OnFireButtonPressed;
+        public event Action OnButton1Down;
+        public event Action OnButton2Down;
+        public event Action OnButton3Down;
 
         public Vector3 Direction { get; private set; }
         public float RotationY { get; private set; }
@@ -18,6 +21,10 @@ namespace Core.Services.Input.Implementation
             UpdateRotation();
 
             UpdateFireState();
+
+            UpdateKey1State();
+            UpdateKey2State();
+            UpdateKey3State();
         }
 
         private void UpdateDirection()
@@ -37,6 +44,30 @@ namespace Core.Services.Input.Implementation
             if (UnityEngine.Input.GetButton("Fire1"))
             {
                 OnFireButtonPressed?.Invoke();
+            }
+        }
+
+        private void UpdateKey1State()
+        {
+            if (UnityEngine.Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                OnButton1Down?.Invoke();
+            }
+        }
+
+        private void UpdateKey2State()
+        {
+            if (UnityEngine.Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                OnButton2Down?.Invoke();
+            }
+        }
+
+        private void UpdateKey3State()
+        {
+            if (UnityEngine.Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                OnButton3Down?.Invoke();
             }
         }
     }
