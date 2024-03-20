@@ -2,9 +2,9 @@
 {
     public enum WeaponType
     {
-        NONE = 0,
-        PISTOL = 1,
-        SHOTGUN = 2,
-        ASSAULT_RIFLE = 3,
+        None = 0,
+        Pistol = 1,
+        Shotgun = 2,
+        AssaultRifle = 3,
     }
 }
