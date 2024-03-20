@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Balance.AssetsTypes;
 using Core.Services.Input.Interfaces;
 using Core.Services.Weapon.Interfaces;
@@ -17,32 +18,70 @@ namespace Core.Services.Weapon.Implementation
         private WeaponType selectedWeapon;
         private readonly IInputService inputService;
 
+        public WeaponType SelectedWeapon => selectedWeapon;
 
         [Inject]
-        public WeaponService(IInputService inputService, WeaponsConfig weaponsConfig)
+        public WeaponService(
+            IInputService inputService,
+            PlayerConfigAsset playerConfig,
+            WeaponsConfig weaponsConfig)
         {
             this.inputService = inputService;
 
             inputService.OnFireButtonPressed += TryShoot;
-            
-            selectedWeapon = WeaponType.ASSAULT_RIFLE;
-            
-            weapons.Add(WeaponType.ASSAULT_RIFLE, new Weapon(weaponsConfig.GetConfig(WeaponType.ASSAULT_RIFLE)));
+            inputService.OnButton1Down += TrySelectPistol;
+            inputService.OnButton2Down += TrySelectShotgun;
+            inputService.OnButton3Down += TrySelectAssaultRiffle;
+
+            foreach (var weaponType in playerConfig.StartWeapons)
+            {
+                weapons.Add(weaponType, new Weapon(weaponsConfig.GetConfig(weaponType)));
+            }
+
+            selectedWeapon = playerConfig.StartWeapons.First();
         }
 
-        private void TryShoot()
+        public List<WeaponType> AvailableWeapons()
         {
-            weapons[selectedWeapon].TryShoot();
-        }
-
-        public void TrySelectWeapon(WeaponType weaponType)
-        {
-            selectedWeapon = weaponType;
+            return weapons.Keys.ToList();
         }
 
         public void Dispose()
         {
             inputService.OnFireButtonPressed -= TryShoot;
+            inputService.OnButton1Down -= TrySelectPistol;
+            inputService.OnButton2Down -= TrySelectShotgun;
+            inputService.OnButton3Down -= TrySelectAssaultRiffle;
+        }
+
+        private void TryShoot()
+        {
+            if (weapons[selectedWeapon].TryShoot())
+            {
+                OnWeaponShoot?.Invoke();
+            }
+        }
+
+        private void TrySelectWeapon(WeaponType weaponType)
+        {
+            selectedWeapon = weaponType;
+            
+            OnWeaponSelect?.Invoke(weaponType);
+        }
+
+        private void TrySelectPistol()
+        {
+            TrySelectWeapon(WeaponType.Pistol);
+        }
+
+        private void TrySelectShotgun()
+        {
+            TrySelectWeapon(WeaponType.Shotgun);
+        }
+
+        private void TrySelectAssaultRiffle()
+        {
+            TrySelectWeapon(WeaponType.AssaultRifle);
         }
     }
 }

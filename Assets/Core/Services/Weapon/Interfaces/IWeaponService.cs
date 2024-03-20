@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Core.Services.Weapon.Implementation;
 
 namespace Core.Services.Weapon.Interfaces
@@ -8,6 +9,7 @@ namespace Core.Services.Weapon.Interfaces
         event Action OnWeaponShoot;
         event Action<WeaponType> OnWeaponSelect;
 
-        void TrySelectWeapon(WeaponType weaponType);
+        WeaponType SelectedWeapon { get; }
+        List<WeaponType> AvailableWeapons();
     }
 }

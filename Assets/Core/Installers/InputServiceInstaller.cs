@@ -11,7 +11,8 @@ namespace Core.Installers
             Container
                 .Bind(typeof(IInputService), typeof(ITickable))
                 .To<PCInputService>()
-                .AsSingle();
+                .AsSingle()
+                .NonLazy();
         }
     }
 }
