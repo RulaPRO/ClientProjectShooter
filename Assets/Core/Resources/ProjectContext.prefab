@@ -90,7 +90,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4e6589720da476459dc6dd71624b071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scriptableObjectInstallers: []
+  _scriptableObjectInstallers:
+  - {fileID: 11400000, guid: 31b0dfe5d0046b54e8f89156ab200078, type: 2}
   _monoInstallers:
   - {fileID: 2586600075407233863}
   - {fileID: 1767076444966238906}

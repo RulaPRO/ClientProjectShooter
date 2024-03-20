@@ -9,14 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 227b1279e8fa4909874204332e2ea3be, type: 3}
-  m_Name: WeaponConfig_AssaultRifle
+  m_Script: {fileID: 11500000, guid: d10e1bd042f246c0bec319330b0b8e38, type: 3}
+  m_Name: ConfigInstaller
   m_EditorClassIdentifier: 
-  weaponType: 3
-  balletDamage: 5
-  bulletRange: 50
-  bulletSpeed: 50
-  shootAccuracy: 2.5
-  shootDelayMs: 100
-  magazineSize: 30
-  reloadTimeMs: 5000
+  weapons: {fileID: 11400000, guid: 4fdebd030aaf27f4cb3065cb6c6f1d17, type: 2}
