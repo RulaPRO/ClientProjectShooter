@@ -1,5 +1,5 @@
 ﻿using Core.Services.Input.Implementation;
-using Core.Services.Input.Intrfaces;
+using Core.Services.Input.Interfaces;
 using Zenject;
 
 namespace Core.Installers
