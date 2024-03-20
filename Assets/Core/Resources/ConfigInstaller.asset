@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d10e1bd042f246c0bec319330b0b8e38, type: 3}
   m_Name: ConfigInstaller
   m_EditorClassIdentifier: 
+  player: {fileID: 11400000, guid: a37f4e0c221cf7e47a5988f8ef409091, type: 2}
   weapons: {fileID: 11400000, guid: 4fdebd030aaf27f4cb3065cb6c6f1d17, type: 2}
