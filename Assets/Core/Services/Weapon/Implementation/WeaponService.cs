@@ -10,13 +10,13 @@ namespace Core.Services.Weapon.Implementation
 {
     public class WeaponService : IWeaponService, IDisposable
     {
-        public event Action OnWeaponShoot;
+        public event Action<WeaponType> OnWeaponShoot;
         public event Action<WeaponType> OnWeaponSelect;
 
         private Dictionary<WeaponType, IWeapon> weapons = new ();
 
-        private WeaponType selectedWeapon;
         private readonly IInputService inputService;
+        private WeaponType selectedWeapon;
 
         public WeaponType SelectedWeapon => selectedWeapon;
 
@@ -35,7 +35,9 @@ namespace Core.Services.Weapon.Implementation
 
             foreach (var weaponType in playerConfig.StartWeapons)
             {
-                weapons.Add(weaponType, new Weapon(weaponsConfig.GetConfig(weaponType)));
+                var weapon = new Weapon(weaponsConfig.GetConfig(weaponType));
+                weapon.OnWeaponShoot += StartShoot;
+                weapons.Add(weaponType, weapon);
             }
 
             selectedWeapon = playerConfig.StartWeapons.First();
@@ -52,14 +54,21 @@ namespace Core.Services.Weapon.Implementation
             inputService.OnButton1Down -= TrySelectPistol;
             inputService.OnButton2Down -= TrySelectShotgun;
             inputService.OnButton3Down -= TrySelectAssaultRiffle;
+
+            foreach (var weapon in weapons.Values)
+            {
+                weapon.OnWeaponShoot -= StartShoot;
+            }
         }
 
         private void TryShoot()
         {
-            if (weapons[selectedWeapon].TryShoot())
-            {
-                OnWeaponShoot?.Invoke();
-            }
+            weapons[selectedWeapon].TryShoot();
+        }
+
+        private void StartShoot(WeaponType weaponType)
+        {
+            OnWeaponShoot?.Invoke(weaponType);
         }
 
         private void TrySelectWeapon(WeaponType weaponType)
