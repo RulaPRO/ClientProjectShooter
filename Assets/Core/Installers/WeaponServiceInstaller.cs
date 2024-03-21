@@ -15,11 +15,16 @@ namespace Core.Installers
                 .AsSingle();
 
             Container
-                .Bind<IWeaponService>()
-                .To<WeaponService>()
+                .Bind<IPlayerWeaponService>()
+                .To<PlayerWeaponService>()
                 .FromNew()
                 .AsSingle()
                 .NonLazy();
+
+            Container
+                .Bind(typeof(IEnemyWeaponService), typeof(ITickable))
+                .To<EnemyWeaponService>()
+                .AsCached();
         }
     }
 }
