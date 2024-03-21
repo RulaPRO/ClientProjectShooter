@@ -7,19 +7,18 @@ namespace Core.Services.Weapon.Implementation
 {
     public class Weapon : IWeapon
     {
-        public event Action OnWeaponShoot;
+        public event Action<WeaponType> OnWeaponShoot;
 
-        private WeaponConfigAsset weaponConfigAsset;
-        private WeaponMagazine weaponMagazine;
+        public WeaponConfigAsset WeaponConfigAsset { get; }
+        public IWeaponMagazine WeaponMagazine { get; private set; }
 
         private bool isShootingDelay;
         private bool isWeaponReloading;
 
         public Weapon(WeaponConfigAsset weaponConfigAsset)
         {
-            this.weaponConfigAsset = weaponConfigAsset;
-
-            weaponMagazine = new WeaponMagazine(weaponConfigAsset.MagazineSize);
+            WeaponConfigAsset = weaponConfigAsset;
+            WeaponMagazine = new WeaponMagazine(weaponConfigAsset.MagazineSize);
         }
 
         public void TryShoot()
@@ -34,24 +33,24 @@ namespace Core.Services.Weapon.Implementation
                 return;
             }
 
-            if (weaponMagazine.IsEmpty)
+            if (WeaponMagazine.IsEmpty)
             {
                 StartReloadMagazine();
 
                 return;
             }
 
-            weaponMagazine.RemoveOneAmmo();
+            WeaponMagazine.RemoveOneAmmo();
             StartShotDelay();
 
-            OnWeaponShoot?.Invoke();
+            OnWeaponShoot?.Invoke(WeaponConfigAsset.WeaponType);
         }
 
         private async void StartShotDelay()
         {
             isShootingDelay = true;
 
-            await Task.Delay(weaponConfigAsset.ShootDelayMs);
+            await Task.Delay(WeaponConfigAsset.ShootDelayMs);
 
             isShootingDelay = false;
         }
@@ -60,9 +59,9 @@ namespace Core.Services.Weapon.Implementation
         {
             isWeaponReloading = true;
 
-            await Task.Delay(weaponConfigAsset.ReloadTimeMs);
+            await Task.Delay(WeaponConfigAsset.ReloadTimeMs);
 
-            weaponMagazine = new WeaponMagazine(weaponConfigAsset.MagazineSize);
+            WeaponMagazine = new WeaponMagazine(WeaponConfigAsset.MagazineSize);
 
             isWeaponReloading = false;
         }
