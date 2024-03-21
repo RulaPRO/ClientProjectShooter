@@ -8,7 +8,7 @@ using Zenject;
 
 namespace Core.Services.Weapon.Implementation
 {
-    public class WeaponService : IWeaponService, IDisposable
+    public class PlayerWeaponService : IPlayerWeaponService, IDisposable
     {
         public event Action<WeaponType> OnWeaponShoot;
         public event Action<WeaponType> OnWeaponSelect;
@@ -21,7 +21,7 @@ namespace Core.Services.Weapon.Implementation
         public WeaponType SelectedWeapon => selectedWeapon;
 
         [Inject]
-        public WeaponService(
+        public PlayerWeaponService(
             IInputService inputService,
             PlayerConfigAsset playerConfig,
             WeaponsConfig weaponsConfig)
