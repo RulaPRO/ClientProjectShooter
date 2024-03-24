@@ -28,7 +28,7 @@ namespace Characters
 
         public void ApplyDamage(int value)
         {
-            characterService.Characters[characterId].Health.DecreaseHealth(value);
+            characterService.Characters[characterId].HealthService.DecreaseHealth(value);
         }
     }
 }

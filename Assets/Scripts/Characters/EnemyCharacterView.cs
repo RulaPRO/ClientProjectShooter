@@ -11,6 +11,7 @@ namespace Characters
     public class EnemyCharacterView : CharacterView
     {
         [SerializeField] private Transform weaponDummy;
+        [SerializeField] private CharactersChecker charactersChecker;
 
         private IEnemyWeaponService enemyWeaponService;
         private WeaponFactory weaponFactory;
@@ -34,6 +35,12 @@ namespace Characters
             ShowWeapon(enemyWeaponService.SelectedWeapon);
 
             enemyWeaponService.OnWeaponShoot += OnWeaponShoot;
+            charactersChecker.OnEnemyInRange += LookAtEnemy;
+        }
+
+        private void LookAtEnemy(GameObject enemyGameObject)
+        {
+            transform.LookAt(enemyGameObject.transform);
         }
 
         private void OnDestroy()

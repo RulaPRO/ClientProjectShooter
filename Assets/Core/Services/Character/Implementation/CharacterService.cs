@@ -11,6 +11,7 @@ namespace Core.Services.Character.Implementation
         private CharacterFactory characterFactory;
 
         public Dictionary<string, ICharacter> Characters { get; }
+        public ICharacter Player { get; private set; }
 
         [Inject]
         public CharacterService(CharacterFactory characterFactory)
@@ -18,6 +19,18 @@ namespace Core.Services.Character.Implementation
             this.characterFactory = characterFactory;
 
             Characters = new Dictionary<string, ICharacter>();
+        }
+
+        public ICharacter SpawnPlayer(Vector3 position)
+        {
+            Player = new Character();
+            Characters.Add(Player.Sid, Player);
+            
+            Player
+                .SetView(characterFactory.Create("PlayerCharacterView"))
+                .SetPosition(position);
+
+            return Player;
         }
 
         public ICharacter SpawnEnemy(Vector3 position)

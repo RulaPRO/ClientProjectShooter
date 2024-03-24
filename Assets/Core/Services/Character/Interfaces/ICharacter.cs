@@ -7,6 +7,7 @@ namespace Core.Services.Character.Interfaces
     {
         string Sid { get; }
         CharacterView CharacterView { get; }
+        IHealthService HealthService { get; }
 
         ICharacter SetView(CharacterView characterView);
         ICharacter SetPosition(Vector3 value);
