@@ -4,18 +4,22 @@ using UnityEngine;
 
 public class CharactersChecker : MonoBehaviour
 {
-    public Action<GameObject> OnEnemyInRange;
+    public Action<CharacterView> OnEnemyEnterInRange;
+    public Action<CharacterView> OnEnemyExitFromRange;
     
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        //Debug.LogError(other.name);
-        
         if (other.TryGetComponent<PlayerCharacterView>(out var component))
         {
-            
-            
-            //Debug.LogError("KEK");
-            OnEnemyInRange?.Invoke(other.gameObject);
+            OnEnemyEnterInRange?.Invoke(component);
+        }
+    }
+    
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.TryGetComponent<PlayerCharacterView>(out var component))
+        {
+            OnEnemyExitFromRange?.Invoke(component);
         }
     }
 }

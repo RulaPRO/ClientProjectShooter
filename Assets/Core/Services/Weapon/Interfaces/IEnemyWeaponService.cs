@@ -2,6 +2,6 @@
 {
     public interface IEnemyWeaponService : IWeaponService
     {
-        
+        void TryShoot();
     }
 }

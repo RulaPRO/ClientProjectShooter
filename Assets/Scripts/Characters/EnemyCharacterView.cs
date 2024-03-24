@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Balance.AssetsTypes;
 using Core.Factories;
 using Core.Services.Character.Implementation;
@@ -19,6 +20,7 @@ namespace Characters
         private WeaponsConfig weaponsConfig;
 
         private Dictionary<WeaponType, WeaponView> weapons = new();
+        private Dictionary<string, CharacterView> targets = new();
 
         private WeaponView selectedWeapon;
 
@@ -36,17 +38,24 @@ namespace Characters
             ShowWeapon(enemyWeaponService.SelectedWeapon);
 
             enemyWeaponService.OnWeaponShoot += OnWeaponShoot;
-            charactersChecker.OnEnemyInRange += LookAtEnemy;
-        }
-
-        private void LookAtEnemy(GameObject enemyGameObject)
-        {
-            transform.LookAt(enemyGameObject.transform);
+            charactersChecker.OnEnemyEnterInRange += OnEnemyEnterInRange;
+            charactersChecker.OnEnemyExitFromRange += OnEnemyExitFromRange;
         }
 
         private void OnDestroy()
         {
             enemyWeaponService.OnWeaponShoot -= OnWeaponShoot;
+            charactersChecker.OnEnemyEnterInRange -= OnEnemyEnterInRange;
+            charactersChecker.OnEnemyExitFromRange -= OnEnemyExitFromRange;
+        }
+
+        private void Update()
+        {
+            if (targets.Count > 0)
+            {
+                transform.LookAt(targets.First().Value.transform);
+                enemyWeaponService.TryShoot();
+            }
         }
 
         private void CreateWeapons()
@@ -63,15 +72,25 @@ namespace Characters
             }
         }
 
+        private void ShowWeapon(WeaponType weaponType)
+        {
+            selectedWeapon = weapons[weaponType];
+            selectedWeapon.gameObject.SetActive(true);
+        }
+
         private void OnWeaponShoot(WeaponType weaponType)
         {
             weapons[weaponType].StartShoot(CharacterFractionType.Enemy);
         }
 
-        private void ShowWeapon(WeaponType weaponType)
+        private void OnEnemyEnterInRange(CharacterView characterView)
         {
-            selectedWeapon = weapons[weaponType];
-            selectedWeapon.gameObject.SetActive(true);
+            targets.Add(characterView.name, characterView);
+        }
+
+        private void OnEnemyExitFromRange(CharacterView characterView)
+        {
+            targets.Remove(characterView.name);
         }
     }
 }

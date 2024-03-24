@@ -5,6 +5,7 @@ namespace Core.Services.Character.Interfaces
     public interface IHealthService
     {
         event Action<int> OnHealthChange;
+        event Action OnHealthEnd;
         int HealthCurrent { get; }
         int HealthMax { get; }
 

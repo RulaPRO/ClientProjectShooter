@@ -22,9 +22,10 @@ namespace Core.Installers
                 .NonLazy();
 
             Container
-                .Bind(typeof(IEnemyWeaponService), typeof(ITickable))
+                .Bind<IEnemyWeaponService>()
                 .To<EnemyWeaponService>()
-                .AsCached();
+                .FromNew()
+                .AsTransient();
         }
     }
 }

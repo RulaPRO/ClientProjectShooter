@@ -7,7 +7,7 @@ using Zenject;
 
 namespace Core.Services.Weapon.Implementation
 {
-    public class EnemyWeaponService : IEnemyWeaponService, ITickable, IDisposable
+    public class EnemyWeaponService : IEnemyWeaponService, IDisposable
     {
         public event Action<WeaponType> OnWeaponShoot;
         public event Action<WeaponType> OnWeaponSelect;
@@ -37,12 +37,7 @@ namespace Core.Services.Weapon.Implementation
             return weapons.Keys.ToList();
         }
 
-        public void Tick()
-        {
-            TryShoot();
-        }
-
-        private void TryShoot()
+        public void TryShoot()
         {
             weapons[SelectedWeapon].TryShoot();
         }
