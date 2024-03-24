@@ -26,6 +26,7 @@ namespace Characters
                 .SetOwnerFraction(fractionType)
                 .SetDirection(transform.rotation)
                 .SetSpeed(config.BulletSpeed)
+                .SetDistance(config.BulletRange)
                 .SetDamage(config.BalletDamage);
         }
     }
