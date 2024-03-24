@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Balance.AssetsTypes;
 using Core.Factories;
+using Core.Services.Character.Implementation;
 using Core.Services.Weapon.Implementation;
 using Core.Services.Weapon.Interfaces;
 using UnityEngine;
@@ -11,7 +12,7 @@ namespace Characters
     public class PlayerCharacterView : CharacterView
     {
         [SerializeField] private Transform weaponDummy;
-        
+
         private IPlayerWeaponService playerWeaponService;
         private WeaponFactory weaponFactory;
         private WeaponsConfig weaponsConfig;
@@ -32,7 +33,7 @@ namespace Characters
 
             CreateWeapons();
             ShowWeapon(playerWeaponService.SelectedWeapon);
-            
+
             playerWeaponService.OnWeaponShoot += OnWeaponShoot;
             playerWeaponService.OnWeaponSelect += OnWeaponSelect;
         }
@@ -59,7 +60,7 @@ namespace Characters
 
         private void OnWeaponShoot(WeaponType weaponType)
         {
-            weapons[weaponType].StartShoot();
+            weapons[weaponType].StartShoot(CharacterFractionType.Player);
         }
 
         private void OnWeaponSelect(WeaponType weaponType)

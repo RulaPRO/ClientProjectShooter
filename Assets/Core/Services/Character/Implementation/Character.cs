@@ -8,6 +8,7 @@ namespace Core.Services.Character.Implementation
     public class Character : ICharacter
     {
         public string Sid { get; }
+        public CharacterFractionType Fraction { get; private set; }
         public CharacterView CharacterView { get; private set; }
         public IHealthService HealthService { get; }
 
@@ -17,6 +18,13 @@ namespace Core.Services.Character.Implementation
 
             HealthService = new HealthService();
             HealthService.Initialize(100);
+        }
+
+        public ICharacter SetFraction(CharacterFractionType characterFractionType)
+        {
+            Fraction = characterFractionType;
+
+            return this;
         }
 
         public ICharacter SetView(CharacterView characterView)

@@ -1,4 +1,5 @@
-﻿using Core.Services.Character.Interfaces;
+﻿using Core.Services.Character.Implementation;
+using Core.Services.Character.Interfaces;
 using UI.Elements;
 using UnityEngine;
 using Zenject;
@@ -22,9 +23,11 @@ namespace Characters
         public void Initialize(string id)
         {
             characterId = id;
-            
+
             characterUI.Initialize(id);
         }
+
+        public CharacterFractionType Fraction => characterService.Characters[characterId].Fraction;
 
         public void ApplyDamage(int value)
         {

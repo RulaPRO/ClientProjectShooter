@@ -27,6 +27,7 @@ namespace Core.Services.Character.Implementation
             Characters.Add(Player.Sid, Player);
             
             Player
+                .SetFraction(CharacterFractionType.Player)
                 .SetView(characterFactory.Create("PlayerCharacterView"))
                 .SetPosition(position);
 
@@ -39,6 +40,7 @@ namespace Core.Services.Character.Implementation
             Characters.Add(character.Sid, character);
 
             character
+                .SetFraction(CharacterFractionType.Enemy)
                 .SetView(characterFactory.Create("EnemyCharacterView"))
                 .SetPosition(position);
 

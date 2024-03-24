@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Balance.AssetsTypes;
 using Core.Factories;
+using Core.Services.Character.Implementation;
 using Core.Services.Weapon.Implementation;
 using Core.Services.Weapon.Interfaces;
 using UnityEngine;
@@ -64,7 +65,7 @@ namespace Characters
 
         private void OnWeaponShoot(WeaponType weaponType)
         {
-            weapons[weaponType].StartShoot();
+            weapons[weaponType].StartShoot(CharacterFractionType.Enemy);
         }
 
         private void ShowWeapon(WeaponType weaponType)
