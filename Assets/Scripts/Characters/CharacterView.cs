@@ -1,4 +1,5 @@
-﻿using Core.Services.Character.Implementation;
+﻿using System;
+using Core.Services.Character.Implementation;
 using Core.Services.Character.Interfaces;
 using UI.Elements;
 using UnityEngine;
@@ -20,10 +21,16 @@ namespace Characters
             this.characterService = characterService;
         }
 
+        private void OnDestroy()
+        {
+            characterService.Characters[characterId].HealthService.OnHealthEnd -= OnHealthEnd;
+        }
+
         public void Initialize(string id)
         {
             characterId = id;
 
+            characterService.Characters[characterId].HealthService.OnHealthEnd += OnHealthEnd;
             characterUI.Initialize(id);
         }
 
@@ -32,6 +39,11 @@ namespace Characters
         public void ApplyDamage(int value)
         {
             characterService.Characters[characterId].HealthService.DecreaseHealth(value);
+        }
+
+        private void OnHealthEnd()
+        {
+            Destroy(gameObject);
         }
     }
 }
